@@ -1,9 +1,7 @@
 export const camelCaseToKebabCase = string =>
   string
     .split('')
-    .map(char =>
-      char.toUpperCase() === char ? '-' + char.toLowerCase() : char
-    )
+    .map(char => (char.toUpperCase() === char ? '-' + char.toLowerCase() : char))
     .join('');
 
 export const combineClassNames = strings => {
