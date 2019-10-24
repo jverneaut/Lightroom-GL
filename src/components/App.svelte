@@ -15,10 +15,10 @@
   <Sidebar>
     <FileInput />
     <h1>Brightness</h1>
-    <input type="number" bind:value={$brightness} />
+    <input type="range" bind:value={$brightness} min="-0.5" max="0.5" step="0.001" />
     <h1>Contrast</h1>
-    <input type="number" bind:value={$contrast} />
+    <input type="range" bind:value={$contrast} min="0.0" max="2.0" step="0.001" />
     <h1>Saturation</h1>
-    <input type="number" bind:value={$saturation} />
+    <input type="range" bind:value={$saturation} min="0.0" max="2.0" step="0.001" />
   </Sidebar>
 </main>
