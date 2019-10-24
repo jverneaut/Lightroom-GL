@@ -1,0 +1,128 @@
+<script>
+  import { onMount, afterUpdate } from 'svelte';
+  import { camelCaseToKebabCase, combineClassNames } from '../lib/strings';
+
+  import vShaderSource from '../shaders/vertex.glsl';
+  import fShaderSource from '../shaders/fragment.glsl';
+
+  import {
+    createShader,
+    createProgram,
+    createTexture,
+    createTextureMesh,
+    createPlaneMesh,
+  } from '../lib/gl';
+
+  import { image, brightness, contrast, saturation } from '../store';
+
+  const options = {
+    withShadow: true,
+    bgWhite: false,
+    bgBlack: false,
+  };
+
+  const optionsClassName = Object.keys(options)
+    .filter(key => options[key])
+    .map(key => '-' + camelCaseToKebabCase(key))
+    .join(' ');
+
+  let container;
+
+  afterUpdate(() => {
+    if ($image) {
+      const canvas = document.createElement('canvas');
+      canvas.width = $image.width;
+      canvas.height = $image.height;
+
+      Object.assign(canvas.style, {
+        height: 600 + 'px',
+        width: 600 * ($image.width / $image.height) + 'px',
+      });
+
+      container.innerHTML = '';
+      container.appendChild(canvas);
+
+      const gl = canvas.getContext('webgl');
+
+      const vShader = createShader(gl, gl.VERTEX_SHADER, vShaderSource);
+      const fShader = createShader(gl, gl.FRAGMENT_SHADER, fShaderSource);
+
+      const program = createProgram(gl, [vShader, fShader]);
+      gl.useProgram(program);
+
+      const texture = createTexture(gl, $image);
+      const textureMesh = createTextureMesh();
+
+      const texcoordAttributeLocation = gl.getAttribLocation(
+        program,
+        'a_texcoord'
+      );
+
+      const texcoordBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(textureMesh),
+        gl.STATIC_DRAW
+      );
+      gl.enableVertexAttribArray(texcoordAttributeLocation);
+      gl.vertexAttribPointer(
+        texcoordAttributeLocation,
+        2,
+        gl.FLOAT,
+        false,
+        0,
+        0
+      );
+
+      const planeMesh = createPlaneMesh();
+
+      const positionAttributeLocation = gl.getAttribLocation(
+        program,
+        'a_position'
+      );
+
+      const positionsBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionsBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(planeMesh),
+        gl.STATIC_DRAW
+      );
+      gl.enableVertexAttribArray(positionAttributeLocation);
+      gl.vertexAttribPointer(
+        positionAttributeLocation,
+        2,
+        gl.FLOAT,
+        false,
+        0,
+        0
+      );
+
+      const brightnessUniformLocation = gl.getUniformLocation(
+        program,
+        'u_brightness'
+      );
+      gl.uniform1f(brightnessUniformLocation, $brightness);
+
+      const contrastUniformLocation = gl.getUniformLocation(
+        program,
+        'u_contrast'
+      );
+      gl.uniform1f(contrastUniformLocation, $contrast);
+
+      const saturationUniformLocation = gl.getUniformLocation(
+        program,
+        'u_saturation'
+      );
+      gl.uniform1f(saturationUniformLocation, $saturation);
+
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, planeMesh.length / 2);
+    }
+  });
+</script>
+
+<div
+  class={combineClassNames(['preview', optionsClassName])}
+  bind:this={container} />
