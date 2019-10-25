@@ -109,6 +109,8 @@
         $gl.bindTexture($gl.TEXTURE_2D, $texture);
         $gl.drawArrays($gl.TRIANGLE_STRIP, 0, $planeMesh.length / 2);
       }
+    } else {
+      loaded = false;
     }
   });
 </script>
