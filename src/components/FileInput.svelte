@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 
   import { image as storeImage, brightness, contrast, saturation } from '../store';
+  import defaults from '../store/defaults';
 
   import defaultImage from '../img/lena.png';
 
@@ -16,10 +17,9 @@
   const onChange = e => {
     $storeImage = null;
 
-    // TODO: Store these parameters in a config to avoid duplication
-    $brightness = 0.0;
-    $contrast = 1.0;
-    $saturation = 1.0;
+    $brightness = defaults.brightness;
+    $contrast = defaults.contrast;
+    $saturation = defaults.saturation;
 
     const file = e.target.files[0];
     const reader = new FileReader();
