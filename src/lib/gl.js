@@ -41,8 +41,8 @@ export const createPlaneMesh = (
     bottom: -1,
     left: -1,
     right: 1,
-    widthSegments: 10,
-    heightSegments: 10,
+    widthSegments: 2,
+    heightSegments: 2,
   }
 ) => {
   const vertexPositions = [];
@@ -80,8 +80,8 @@ export const createPlaneMesh = (
 
 export const createTextureMesh = (
   settings = {
-    widthSegments: 10,
-    heightSegments: 10,
+    widthSegments: 2,
+    heightSegments: 2,
   }
 ) => {
   const texturePositions = [];
