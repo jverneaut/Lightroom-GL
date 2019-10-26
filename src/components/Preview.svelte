@@ -21,6 +21,8 @@
     texture,
     planeMesh,
     brightness,
+    highlights,
+    shadows,
     contrast,
     saturation,
   } from '../store';
@@ -87,6 +89,12 @@
         const brightnessUniformLocation = $gl.getUniformLocation($program, 'u_brightness');
         $gl.uniform1f(brightnessUniformLocation, $brightness);
 
+        const highlightsUniformLocation = $gl.getUniformLocation($program, 'u_highlights');
+        $gl.uniform1f(highlightsUniformLocation, $highlights);
+
+        const shadowsUniformLocation = $gl.getUniformLocation($program, 'u_shadows');
+        $gl.uniform1f(shadowsUniformLocation, $shadows);
+
         const contrastUniformLocation = $gl.getUniformLocation($program, 'u_contrast');
         $gl.uniform1f(contrastUniformLocation, $contrast);
 
@@ -99,6 +107,12 @@
         // Apply filters and redraw
         const brightnessUniformLocation = $gl.getUniformLocation($program, 'u_brightness');
         $gl.uniform1f(brightnessUniformLocation, $brightness);
+
+        const highlightsUniformLocation = $gl.getUniformLocation($program, 'u_highlights');
+        $gl.uniform1f(highlightsUniformLocation, $highlights);
+
+        const shadowsUniformLocation = $gl.getUniformLocation($program, 'u_shadows');
+        $gl.uniform1f(shadowsUniformLocation, $shadows);
 
         const contrastUniformLocation = $gl.getUniformLocation($program, 'u_contrast');
         $gl.uniform1f(contrastUniformLocation, $contrast);

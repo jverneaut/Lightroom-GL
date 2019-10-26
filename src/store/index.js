@@ -11,5 +11,7 @@ export const texture = writable();
 export const planeMesh = writable();
 
 export const brightness = writable(defaults.brightness);
+export const highlights = writable(defaults.highlights);
+export const shadows = writable(defaults.shadows);
 export const contrast = writable(defaults.contrast);
 export const saturation = writable(defaults.saturation);
