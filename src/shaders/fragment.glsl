@@ -11,14 +11,10 @@ void main() {
   vec4 sampleColor = texture2D(u_texture, v_texcoord);
 
   // Brightness
-  sampleColor.x = max(0.0, sampleColor.x + u_brightness);
-  sampleColor.y = max(0.0, sampleColor.y + u_brightness);
-  sampleColor.z = max(0.0, sampleColor.z + u_brightness);
+  sampleColor = vec4(clamp(sampleColor.rgb + u_brightness, 0.0, 1.0), 1.0);
 
   // Contrast
-  sampleColor.x = u_contrast * (sampleColor.x - 0.5) + 0.5;
-  sampleColor.y = u_contrast * (sampleColor.y - 0.5) + 0.5;
-  sampleColor.z = u_contrast * (sampleColor.z - 0.5) + 0.5;
+  sampleColor = vec4(u_contrast * (sampleColor.rgb - 0.5) + 0.5, 1.0);
 
   // Saturation
   float desaturated = (sampleColor.x + sampleColor.y + sampleColor.z) / 3.0;
