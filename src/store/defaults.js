@@ -4,4 +4,5 @@ export default {
   shadows: 1.0,
   contrast: 1.0,
   saturation: 1.0,
+  grain: 0.0,
 };

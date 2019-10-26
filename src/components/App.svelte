@@ -5,7 +5,7 @@
 
   import SEO from './SEO.svelte';
 
-  import { brightness, highlights, shadows, contrast, saturation } from '../store';
+  import { brightness, highlights, shadows, contrast, saturation, grain } from '../store';
 </script>
 
 <SEO title="Lightroom" />
@@ -24,5 +24,7 @@
     <input type="range" bind:value={$contrast} min="0.0" max="2.0" step="0.001" />
     <h1>Saturation</h1>
     <input type="range" bind:value={$saturation} min="0.0" max="2.0" step="0.001" />
+    <h1>Grain</h1>
+    <input type="range" bind:value={$grain} min="0.0" max="1.0" step="0.001" />
   </Sidebar>
 </main>

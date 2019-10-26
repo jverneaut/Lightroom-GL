@@ -8,6 +8,11 @@ uniform float u_highlights;
 uniform float u_shadows;
 uniform float u_contrast;
 uniform float u_saturation;
+uniform float u_grain;
+
+float random (vec2 st) {
+  return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
 
 void main() {
   vec4 sampleColor = texture2D(u_texture, v_texcoord);
@@ -29,6 +34,12 @@ void main() {
   // Saturation
   float desaturated = (sampleColor.x + sampleColor.y + sampleColor.z) / 3.0;
   sampleColor = (1.0 - u_saturation) * vec4(vec3(desaturated), 1) + u_saturation * sampleColor;
+
+  // Grain
+  // TODO: Improve next line by passing resolution uniform
+  vec2 st = gl_FragCoord.xy / 1000.0;
+  float rnd = random(st);
+  sampleColor = mix(sampleColor, vec4(sampleColor.rgb * (0.5 + vec3(rnd)), 1.0), u_grain);
 
   gl_FragColor = sampleColor;
 }

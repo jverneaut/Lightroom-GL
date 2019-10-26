@@ -1,7 +1,15 @@
 <script>
   import { onMount } from 'svelte';
 
-  import { image as storeImage, brightness, contrast, saturation } from '../store';
+  import {
+    image as storeImage,
+    brightness,
+    highlights,
+    shadows,
+    contrast,
+    saturation,
+    grain,
+  } from '../store';
   import defaults from '../store/defaults';
 
   import defaultImage from '../img/lena.png';
@@ -18,8 +26,11 @@
     $storeImage = null;
 
     $brightness = defaults.brightness;
+    $highlights = defaults.highlights;
+    $shadows = defaults.shadows;
     $contrast = defaults.contrast;
     $saturation = defaults.saturation;
+    $grain = defaults.grain;
 
     const file = e.target.files[0];
     const reader = new FileReader();

@@ -25,6 +25,7 @@
     shadows,
     contrast,
     saturation,
+    grain,
   } from '../store';
 
   const options = {
@@ -101,6 +102,9 @@
         const saturationUniformLocation = $gl.getUniformLocation($program, 'u_saturation');
         $gl.uniform1f(saturationUniformLocation, $saturation);
 
+        const grainUniformLocation = $gl.getUniformLocation($program, 'u_grain');
+        $gl.uniform1f(grainUniformLocation, $grain);
+
         $gl.bindTexture($gl.TEXTURE_2D, $texture);
         $gl.drawArrays($gl.TRIANGLE_STRIP, 0, $planeMesh.length / 2);
       } else {
@@ -119,6 +123,9 @@
 
         const saturationUniformLocation = $gl.getUniformLocation($program, 'u_saturation');
         $gl.uniform1f(saturationUniformLocation, $saturation);
+
+        const grainUniformLocation = $gl.getUniformLocation($program, 'u_grain');
+        $gl.uniform1f(grainUniformLocation, $grain);
 
         $gl.bindTexture($gl.TEXTURE_2D, $texture);
         $gl.drawArrays($gl.TRIANGLE_STRIP, 0, $planeMesh.length / 2);
