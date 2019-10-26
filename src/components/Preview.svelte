@@ -34,7 +34,7 @@
     bgBlack: false,
   };
 
-  const optionsClassName = Object.keys(options)
+  $: optionsClassName = Object.keys(options)
     .filter(key => options[key])
     .map(key => '-' + camelCaseToKebabCase(key))
     .join(' ');
@@ -137,3 +137,32 @@
 </script>
 
 <div class={combineClassNames(['preview', optionsClassName])} bind:this={container} />
+<div class="preview-options">
+  <button
+    on:click={() => {
+      options.bgBlack = true;
+      options.bgWhite = false;
+    }}>
+    BG Dark
+  </button>
+  <button
+    on:click={() => {
+      options.bgBlack = false;
+      options.bgWhite = true;
+    }}>
+    BG White
+  </button>
+  <button
+    on:click={() => {
+      options.bgBlack = false;
+      options.bgWhite = false;
+    }}>
+    BG Grey
+  </button>
+  <button
+    on:click={() => {
+      options.withShadow = !options.withShadow;
+    }}>
+    Shadows
+  </button>
+</div>
