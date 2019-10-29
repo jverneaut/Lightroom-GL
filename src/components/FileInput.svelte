@@ -12,7 +12,7 @@
   } from '../store';
   import defaults from '../store/defaults';
 
-  import defaultImage from '../img/lena.png';
+  import defaultImage from '../img/lena.jpg';
 
   onMount(() => {
     const image = document.createElement('img');
