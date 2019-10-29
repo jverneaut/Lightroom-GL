@@ -21,9 +21,11 @@ void main() {
   sampleColor = vec4(clamp(sampleColor.rgb + u_brightness, 0.0, 1.0), 1.0);
 
   // Highlights
+  // TODO: Use soft knee
   sampleColor = vec4(min(sampleColor.rgb, 0.5) + u_highlights * clamp(sampleColor.rgb - 0.5, 0.0, 0.5), 1.0);
 
   // Shadows
+  // TODO: Use soft knee
   if (sampleColor.r + sampleColor.g + sampleColor.b < 1.5) {
     sampleColor = vec4((u_shadows * (sampleColor.rgb - 0.5)) + 0.5, 1.0);
   }  
